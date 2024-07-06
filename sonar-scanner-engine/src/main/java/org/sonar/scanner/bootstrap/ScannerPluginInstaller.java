@@ -81,7 +81,7 @@ public class ScannerPluginInstaller implements PluginInstaller {
       }
 
       PluginInfo info = PluginInfo.create(jarFile.get());
-      result.put(info.getKey(), new ScannerPlugin(plugin.key, plugin.updatedAt, PluginType.valueOf(plugin.type), info));
+      result.put(info.getKey(), new ScannerPlugin(plugin.key, plugin.updatedAt, PluginType.BUNDLED, info));
     }
     return new Loaded(true, null);
   }

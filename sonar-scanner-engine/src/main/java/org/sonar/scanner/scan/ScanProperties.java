@@ -44,6 +44,7 @@ public class ScanProperties {
   public static final String QUALITY_GATE_WAIT = "sonar.qualitygate.wait";
   public static final String QUALITY_GATE_TIMEOUT_IN_SEC = "sonar.qualitygate.timeout";
   public static final String REPORT_PUBLISH_TIMEOUT_IN_SEC = "sonar.ws.report.timeout";
+  public static final String SKIP_REPORT_UPLOAD_KEY = "sonar.skipReportUpload";
 
   private final Configuration configuration;
   private final DefaultInputProject project;
@@ -96,6 +97,10 @@ public class ScanProperties {
 
   public long fileSizeLimit() {
     return configuration.getInt(FILE_SIZE_LIMIT).orElse(20);
+  }
+
+  public boolean shouldSkipReportUpload() {
+    return configuration.getBoolean(SKIP_REPORT_UPLOAD_KEY).orElse(false);
   }
 
   /**

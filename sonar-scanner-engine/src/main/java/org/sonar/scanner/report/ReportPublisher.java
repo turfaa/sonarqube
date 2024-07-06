@@ -159,7 +159,7 @@ public class ReportPublisher implements Startable {
     if (properties.shouldKeepReport()) {
       LOG.info("Analysis report generated in " + reportDir);
     }
-    if (!analysisMode.isMediumTest()) {
+    if (!analysisMode.isMediumTest() && !properties.shouldSkipReportUpload()) {
       String taskId = upload(report);
       prepareAndDumpMetadata(taskId);
     }
@@ -197,6 +197,8 @@ public class ReportPublisher implements Startable {
   private void logSuccess() {
     if (analysisMode.isMediumTest()) {
       LOG.info("ANALYSIS SUCCESSFUL");
+    } else if (properties.shouldSkipReportUpload()) {
+      LOG.info("ANALYSIS SUCCESSFUL, but report was not uploaded");
     } else if (!properties.shouldWaitForQualityGate()) {
       LOG.info("ANALYSIS SUCCESSFUL, you can find the results at: {}", ceTaskReportDataHolder.getDashboardUrl());
       LOG.info("Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report");

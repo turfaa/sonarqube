@@ -370,7 +370,7 @@ public class SpringProjectScanContainer extends SpringComponentContainer {
     getComponentByType(CpdExecutor.class).execute();
     getComponentByType(ReportPublisher.class).execute();
 
-    if (properties.shouldWaitForQualityGate()) {
+    if (properties.shouldWaitForQualityGate() && !properties.shouldSkipReportUpload()) {
       LOG.info("------------- Check Quality Gate status");
       getComponentByType(QualityGateCheck.class).await();
     }
